@@ -33,14 +33,13 @@ Route::get('tlogin', [TutorAuthController::class, 'tindex'])->name('tlogin');
 Route::post('tcustom-login', [TutorAuthController::class, 'tcustomLogin'])->name('tlogin.custom');
 Route::get('tregister', [TutorAuthController::class, 'tregistration'])->name('tregister');
 Route::post('tcustom-registration', [TutorAuthController::class, 'tcustomRegistration'])->name('tregister.custom');
-Route::get('tsignout', [TutorAuthController::class, 'signOut'])->name('tsignout');
 
 if (Auth::guard('tutors')->attempt([
     'temail' => request('temail'),
     'password' => request('password'),
 ])) {
     // Get the authenticated tutor
-    $tutor = Auth::guard('tutors')->tutors();
+    $tutor = Auth::guard('tutors')->user();
 
     // Redirect the tutor to a protected page
     return redirect('/tutors/dashboard');
